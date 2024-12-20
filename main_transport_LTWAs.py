@@ -22,36 +22,36 @@ from trajectoriesplot import SignalPlanPlot, PurduePlot
 
 
 def exp(i, ari_signal_plan_ring, cycle, offset, phase):
-    # print(f'=======================================Scenario {i}=====================================================')
-    # # Data preparation
-    # # Intersection location information
-    # inter_location_inbound = [154.42, 1271.24, 1998.41, 2580.95]
-    # inter_location_outbound = [202.49, 1347.52, 2083.13, 2683.34]
-    # # ==========================================plot trajectory==================================================
-    # tra = SignalPlanPlot()
-    # tra.period = 3600
-    # tra.gw_speed = 50
-    # tra.phase_inbound, tra.phase_outbound = phase[0], phase[1]
-    # tra.controllers_num, tra.cycle, tra.offset = 4, cycle, offset
-    # tra.lanelength_inbound, tra.lanelength_outbound = [3018.30], [3018.30]
-    # tra.inter_location_inbound, tra.inter_location_outbound = inter_location_inbound, inter_location_outbound
-    # tra.ari_signal_plan_ring1 = ari_signal_plan_ring[0]
-    # tra.ari_signal_plan_ring2 = ari_signal_plan_ring[1]
-    # Load = AterialDataCollection()
-    # tra.ari_signal_plan_ring1_color = Load.set_signal_color(phase_inbound, controllers_num_=4)
-    # tra.ari_signal_plan_ring2_color = Load.set_signal_color(phase_outbound, controllers_num_=4)
+    print(f'=======================================Scenario {i}=====================================================')
+    # Data preparation
+    # Intersection location information
+    inter_location_inbound = [154.42, 1271.24, 1998.41, 2580.95]
+    inter_location_outbound = [202.49, 1347.52, 2083.13, 2683.34]
+    # ==========================================plot trajectory==================================================
+    tra = SignalPlanPlot()
+    tra.period = 3600
+    tra.gw_speed = 50
+    tra.phase_inbound, tra.phase_outbound = phase[0], phase[1]
+    tra.controllers_num, tra.cycle, tra.offset = 4, cycle, offset
+    tra.lanelength_inbound, tra.lanelength_outbound = [3018.30], [3018.30]
+    tra.inter_location_inbound, tra.inter_location_outbound = inter_location_inbound, inter_location_outbound
+    tra.ari_signal_plan_ring1 = ari_signal_plan_ring[0]
+    tra.ari_signal_plan_ring2 = ari_signal_plan_ring[1]
+    Load = AterialDataCollection()
+    tra.ari_signal_plan_ring1_color = Load.set_signal_color(phase_inbound, controllers_num_=4)
+    tra.ari_signal_plan_ring2_color = Load.set_signal_color(phase_outbound, controllers_num_=4)
 
-    # tra.ari_signal_plan_ring1_hatch = Load.set_left_signal_hatch(phase_inbound, controllers_num_=4)
-    # tra.ari_signal_plan_ring2_hatch = Load.set_left_signal_hatch(phase_outbound, controllers_num_=4)
-    # tra.plot_signal_plan(band_text=(True, 1800))
-    # #
-    # inbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\inbound_trajectorydata{i}.pkl')
-    # outbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\outbound_trajectorydata{i}.pkl')
-    # tra.plot_trajectories(inbound_trajectorydata, outbound_trajectorydata)
-    # tra.set_title(title=f'Scenario{i}', fontsize=25)
-    # plt.savefig(f'D:\\data\\Scenario{i}.png', format='png')
-    # # plt.show()
-    # plt.close('all')
+    tra.ari_signal_plan_ring1_hatch = Load.set_left_signal_hatch(phase_inbound, controllers_num_=4)
+    tra.ari_signal_plan_ring2_hatch = Load.set_left_signal_hatch(phase_outbound, controllers_num_=4)
+    tra.plot_signal_plan(band_text=(True, 1800))
+    #
+    inbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\inbound_trajectorydata{i}.pkl')
+    outbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\outbound_trajectorydata{i}.pkl')
+    tra.plot_trajectories(inbound_trajectorydata, outbound_trajectorydata)
+    tra.set_title(title=f'Scenario{i}', fontsize=25)
+    plt.savefig(f'D:\\data\\Scenario{i}.png', format='png')
+    # plt.show()
+    plt.close('all')
     # =============================================rate=====================================================
     # Read the trajectory data
     inbound_rate_data = load_variavle(f'D:\\data\\RateData\\inbound_rate_data{i}.pkl')
