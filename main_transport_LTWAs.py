@@ -20,7 +20,10 @@ from rateperformance import output_average_speed
 from datastore import load_variavle, AterialDataCollection
 from trajectoriesplot import SignalPlanPlot, PurduePlot
 
-
+"""
+The trajectory data files were simply too large to upload to GitHub, 
+and we uploaded the ratings data at master  for use in the example.
+"""
 def exp(i, ari_signal_plan_ring, cycle, offset, phase):
     print(f'=======================================Scenario {i}=====================================================')
     # Data preparation
@@ -28,30 +31,30 @@ def exp(i, ari_signal_plan_ring, cycle, offset, phase):
     inter_location_inbound = [154.42, 1271.24, 1998.41, 2580.95]
     inter_location_outbound = [202.49, 1347.52, 2083.13, 2683.34]
     # ==========================================plot trajectory==================================================
-    tra = SignalPlanPlot()
-    tra.period = 3600
-    tra.gw_speed = 50
-    tra.phase_inbound, tra.phase_outbound = phase[0], phase[1]
-    tra.controllers_num, tra.cycle, tra.offset = 4, cycle, offset
-    tra.lanelength_inbound, tra.lanelength_outbound = [3018.30], [3018.30]
-    tra.inter_location_inbound, tra.inter_location_outbound = inter_location_inbound, inter_location_outbound
-    tra.ari_signal_plan_ring1 = ari_signal_plan_ring[0]
-    tra.ari_signal_plan_ring2 = ari_signal_plan_ring[1]
-    Load = AterialDataCollection()
-    tra.ari_signal_plan_ring1_color = Load.set_signal_color(phase_inbound, controllers_num_=4)
-    tra.ari_signal_plan_ring2_color = Load.set_signal_color(phase_outbound, controllers_num_=4)
+    # tra = SignalPlanPlot()
+    # tra.period = 3600
+    # tra.gw_speed = 50
+    # tra.phase_inbound, tra.phase_outbound = phase[0], phase[1]
+    # tra.controllers_num, tra.cycle, tra.offset = 4, cycle, offset
+    # tra.lanelength_inbound, tra.lanelength_outbound = [3018.30], [3018.30]
+    # tra.inter_location_inbound, tra.inter_location_outbound = inter_location_inbound, inter_location_outbound
+    # tra.ari_signal_plan_ring1 = ari_signal_plan_ring[0]
+    # tra.ari_signal_plan_ring2 = ari_signal_plan_ring[1]
+    # Load = AterialDataCollection()
+    # tra.ari_signal_plan_ring1_color = Load.set_signal_color(phase_inbound, controllers_num_=4)
+    # tra.ari_signal_plan_ring2_color = Load.set_signal_color(phase_outbound, controllers_num_=4)
 
-    tra.ari_signal_plan_ring1_hatch = Load.set_left_signal_hatch(phase_inbound, controllers_num_=4)
-    tra.ari_signal_plan_ring2_hatch = Load.set_left_signal_hatch(phase_outbound, controllers_num_=4)
-    tra.plot_signal_plan(band_text=(True, 1800))
-    #
-    inbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\inbound_trajectorydata{i}.pkl')
-    outbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\outbound_trajectorydata{i}.pkl')
-    tra.plot_trajectories(inbound_trajectorydata, outbound_trajectorydata)
-    tra.set_title(title=f'Scenario{i}', fontsize=25)
-    plt.savefig(f'D:\\data\\Scenario{i}.png', format='png')
-    # plt.show()
-    plt.close('all')
+    # tra.ari_signal_plan_ring1_hatch = Load.set_left_signal_hatch(phase_inbound, controllers_num_=4)
+    # tra.ari_signal_plan_ring2_hatch = Load.set_left_signal_hatch(phase_outbound, controllers_num_=4)
+    # tra.plot_signal_plan(band_text=(True, 1800))
+    # #
+    # inbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\inbound_trajectorydata{i}.pkl')
+    # outbound_trajectorydata = load_variavle(f'D:\\data\\TrajectoryData\\outbound_trajectorydata{i}.pkl')
+    # tra.plot_trajectories(inbound_trajectorydata, outbound_trajectorydata)
+    # tra.set_title(title=f'Scenario{i}', fontsize=25)
+    # plt.savefig(f'D:\\data\\Scenario{i}.png', format='png')
+    # # plt.show()
+    # plt.close('all')
     # =============================================rate=====================================================
     # Read the trajectory data
     inbound_rate_data = load_variavle(f'D:\\data\\RateData\\inbound_rate_data{i}.pkl')
@@ -76,32 +79,32 @@ def exp(i, ari_signal_plan_ring, cycle, offset, phase):
     per.ari_signal_plan_ring2 = ari_signal_plan_ring[1]  # Timing plan
     per.output_performance_grade()
     # ========================output POG and stop ratio=========================================================
-    pu = PurduePlot(cycle=cycle, offset=offset, lanelength_outbound=3018.30)
-    inter_location_inbound = [154.42, 1271.24, 1998.41, 2580.95]
-    inter_location_outbound = [202.49, 1347.52, 2083.13, 2683.34]
-    pu.inter_location_inbound = inter_location_inbound
-    pu.inter_location_outbound = inter_location_outbound
-    pu.inbound_tradata = inbound_trajectorydata
-    pu.outbound_tradata = outbound_trajectorydata
-    pu.ari_signal_plan_ring1 = ari_signal_plan_ring[0]
-    pu.ari_signal_plan_ring2 = ari_signal_plan_ring[1]
-    pu.phase_inbound = phase[0]
-    pu.phase_outbound = phase[1]
-    # plot purdue diagram if need
-    # pu.plot_purdue()
-    # save vehicle arrival data
-    (purdue_data1, purdue_data2) = load_variavle(f'D:\\data\\PurdueData\\purdue_data{i}.pkl')
-    (purdue_BOG_EOG1, purdue_BOG_EOG2) = load_variavle(f'D:\\data\\PurdueData\\purdue_BOG_EOG{i}.pkl')
-    pog1 = output_POG(purdue_data1, purdue_BOG_EOG1)
-    pog2 = output_POG(purdue_data2, purdue_BOG_EOG2)
-    print('-------------------------------------------------------------------')
-    print(f'The average POG for Scenario {i} is:', (pog1 + pog2) / 2)
-    print('-------------------------------------------------------------------')
-    stop_r1 = output_stop_percent(inter_location_inbound, inbound_trajectorydata, 0)
-    stop_r2 = output_stop_percent(inter_location_outbound, outbound_trajectorydata, 0)
-    print('-------------------------------------------------------------------')
-    print(f'The average stop ratio for scenario {i} is:', (stop_r1 + stop_r2) / 2)
-    print('-------------------------------------------------------------------')
+    # pu = PurduePlot(cycle=cycle, offset=offset, lanelength_outbound=3018.30)
+    # inter_location_inbound = [154.42, 1271.24, 1998.41, 2580.95]
+    # inter_location_outbound = [202.49, 1347.52, 2083.13, 2683.34]
+    # pu.inter_location_inbound = inter_location_inbound
+    # pu.inter_location_outbound = inter_location_outbound
+    # pu.inbound_tradata = inbound_trajectorydata
+    # pu.outbound_tradata = outbound_trajectorydata
+    # pu.ari_signal_plan_ring1 = ari_signal_plan_ring[0]
+    # pu.ari_signal_plan_ring2 = ari_signal_plan_ring[1]
+    # pu.phase_inbound = phase[0]
+    # pu.phase_outbound = phase[1]
+    # # plot purdue diagram if need
+    # # pu.plot_purdue()
+    # # save vehicle arrival data
+    # (purdue_data1, purdue_data2) = load_variavle(f'D:\\data\\PurdueData\\purdue_data{i}.pkl')
+    # (purdue_BOG_EOG1, purdue_BOG_EOG2) = load_variavle(f'D:\\data\\PurdueData\\purdue_BOG_EOG{i}.pkl')
+    # pog1 = output_POG(purdue_data1, purdue_BOG_EOG1)
+    # pog2 = output_POG(purdue_data2, purdue_BOG_EOG2)
+    # print('-------------------------------------------------------------------')
+    # print(f'The average POG for Scenario {i} is:', (pog1 + pog2) / 2)
+    # print('-------------------------------------------------------------------')
+    # stop_r1 = output_stop_percent(inter_location_inbound, inbound_trajectorydata, 0)
+    # stop_r2 = output_stop_percent(inter_location_outbound, outbound_trajectorydata, 0)
+    # print('-------------------------------------------------------------------')
+    # print(f'The average stop ratio for scenario {i} is:', (stop_r1 + stop_r2) / 2)
+    # print('-------------------------------------------------------------------')
 
 
 for S in [1, 2, 3, 4, 5]:  # Scenario
